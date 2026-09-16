@@ -4,4 +4,4 @@
 
 P.S.: Did u know "git" is a "мерзавец" in russian? :)
 
-qwerty
+Этот проект находится в разработке ветки feature.
