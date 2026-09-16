@@ -27,9 +27,11 @@ jobs:
     - name: Run tests
       run: npm test --if-present
 
+    - name: TruffleHog OSS Scan
   - name: TruffleHog OSS Scan
       uses: trufflesecurity/trufflehog@main
       with:
         path: ./
         base: ${{ github.event.pull_request.base.sha }}
+        head: ${{ github.event.pull_request.head.sha }}
         head: ${{ github.event.pull_request.head.sha }}
