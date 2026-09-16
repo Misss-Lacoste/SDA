@@ -4,4 +4,4 @@
 
 P.S.: Did u know "git" is a "мерзавец" in russian? :)
 
-qwerty
+Официальная документация главного проекта в ветке main.
