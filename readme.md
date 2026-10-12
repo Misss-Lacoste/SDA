@@ -1,9 +1,7 @@
 ### Repo for Software Development Automation course in HSE SE
 
-#### Author: Gorbacheva Margarita.
+#### Студент: Горбачева Маргарита | 24КНТ-4
 
 
 P.S.: Did u know "git" is a "мерзавец" in russian? :)
-
-Официальная документация главного проекта в ветке main.
 
