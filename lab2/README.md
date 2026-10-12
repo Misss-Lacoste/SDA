@@ -1,5 +1,5 @@
-# Software Design | HW3
-Горбачева Маргарита Валерьевна | БПИ-245
+# Software Development Automation | lab2
+Горбачева Маргарита Валерьевна | 24КНТ-4
 ### Синхронное межсервисное взаимодействие
 Разработать информационную систему, которая будет организовывать хранение работ, присланных студентами, а также формировать отчет по каждой работе по результатам проверки на заимствования (антиплагиат).
 ### Архитектура
@@ -23,8 +23,8 @@ P.S.: Для каждого микросервиса создан свой Docke
 2. Клонировать репозиторий
 3. Перейти в папку проекта
 ```bash
-git clone https://github.com/Misss-Lacoste/Software-Design/tree/homework3
-cd HSE/SoftwareEngineering
+git clone https://github.com/Misss-Lacoste/SDA/tree/main/lab2
+cd HSE/SDA
 ```
 4. Теперь в IDE запускаем проект, стоит обратить внимание, что данный проект реализуется с применением Docker'a, поэтому важно сначала установить себе на компьютер Docker. Я устанавливала Docker Desktop по ссылке https://www.docker.com/ После успешной установки и запуска проекта, можно в самом приложении увидеть отчет docker'а:
 ![вот так](https://github.com/Misss-Lacoste/Software-Design/blob/homework3/screenshots/Screen10.jpg)
