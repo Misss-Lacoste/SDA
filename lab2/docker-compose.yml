@@ -1,0 +1,51 @@
+version: '3.8'
+#это будет файл главного контейнера, котрый будет в себе хранить другие 4 контейнера
+services: 
+  postgres:
+    image: postgres:13 #будет современная версия пострги номер 13
+    environment: #настаройка среды
+      POSTGRES_DB: antiplagiarism 
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    volumes: #постоянное храниилище данных бд+скрипт для иниц таблиц
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+#сервис для хранения файлов
+  file-storing-service:
+    build: ./file-storing-service #собираем из папки 
+    ports:
+      - "8001:8000"
+    environment: #url для подключения
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/antiplagiarism
+    volumes:
+      - ./uploads:/app/uploads #создаем папку в контейнере
+    depends_on:
+      - postgres
+#а это сервис для анализа файлов
+  file-analysis-service: #по поводу инструкций - аналогично
+    build: ./file-analysis-service
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/antiplagiarism
+      - FILE_STORING_SERVICE_URL=http://file-storing-service:8000
+    depends_on:
+      - postgres
+      - file-storing-service #собираем матрёшку:)
+#теперь сервис для апишки
+  api-gateway:
+    build: ./api-gateway 
+    #главный порт системы, а если заметить, сверху были 01 и 02
+    ports:
+      - "8000:8000" 
+    environment:
+      - FILE_STORING_SERVICE_URL=http://file-storing-service:8000
+      - FILE_ANALYSIS_SERVICE_URL=http://file-analysis-service:8000
+    depends_on:
+      - file-storing-service
+      - file-analysis-service
+
+volumes:
+  postgres_data: #хранилища данных сохрвняют данные в бд между запусками
