@@ -20,30 +20,20 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker compose build
-          # Получаем имя образа из docker-compose.yml
-          IMAGE_NAME=$(docker compose config | grep -E '^\s+image:' | head -1 | awk '{print $2}')
-          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
-          echo "Built image: $IMAGE_NAME"
+          # Укажите правильный путь к вашему docker-compose файлу
+          docker compose -f docker-compose.yaml build
+          # или если файл в подпапке:
+          # docker compose -f lab2/docker-compose.yml build
+          
+          # Получаем имя образа
+          IMAGE=$(docker compose -f docker-compose.yaml config | grep -E '^\s+image:' | head -1 | sed 's/.*image:\s*//')
+          echo "IMAGE_NAME=$IMAGE" >> $GITHUB_ENV
+          echo "Image: $IMAGE"
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy scanner
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.IMAGE_NAME }}
           format: 'table'
           exit-code: '0'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
-
-      - name: Run Trivy with SARIF output
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.IMAGE_NAME }}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          exit-code: '0'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v4
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
