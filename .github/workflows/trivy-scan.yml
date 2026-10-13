@@ -20,12 +20,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # Укажите правильный путь к вашему docker-compose файлу
-          docker compose -f docker-compose.yaml build
-          # или если файл в подпапке:
-          # docker compose -f lab2/docker-compose.yml build
+          docker compose -f lab2/docker-compose.yml build
           
-          # Получаем имя образа
           IMAGE=$(docker compose -f docker-compose.yaml config | grep -E '^\s+image:' | head -1 | sed 's/.*image:\s*//')
           echo "IMAGE_NAME=$IMAGE" >> $GITHUB_ENV
           echo "Image: $IMAGE"
