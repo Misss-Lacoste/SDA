@@ -18,25 +18,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Build Docker images
         run: |
-          # docker build -t myapp:latest .
-          docker compose -f lab2/docker-compose.yml build
-          # docker compose -f docker-compose.yml config | grep -E '^\s+image:' | head -1 | awk '{print $2}' | xargs -I {} docker tag {} myapp:latest
+          cd lab2
+          docker compose build
+          docker images
+          docker compose config | grep -E '^\s+image:' | head -1 | awk '{print $2}' | tee /tmp/image_name.txt
 
-      - name: Run Trivy scanner
+      - name: Get image name
+        id: get-image
+        run: |
+          cd lab2
+          IMAGE=$(docker compose config | grep -E '^\s+image:' | head -1 | awk '{print $2}')
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+          echo "Scanning: $IMAGE"
+
+      - name: Run Trivy scanner (table)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'myapp:latest'
+          image-ref: ${{ steps.get-image.outputs.image }}
           format: 'table'
           exit-code: '0'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
           scanners: 'vuln'
 
-      - name: Run Trivy with SARIF output
+      - name: Run Trivy scanner (SARIF)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'myapp:latest'
+          image-ref: ${{ steps.get-image.outputs.image }}
           format: 'sarif'
           output: 'trivy-results.sarif'
           exit-code: '0'
