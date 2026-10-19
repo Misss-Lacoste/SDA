@@ -1,0 +1,65 @@
+313 warnings generated.
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:17:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [clang-analyzer-security.insecureAPI.strcpy]
+   17 |     strcpy(buf, a.name);              // BUG-1: buffer overflow (ошибка памяти)
+      |     ^~~~~~
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:17:5: note: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119
+   17 |     strcpy(buf, a.name);              // BUG-1: buffer overflow (ошибка памяти)
+      |     ^~~~~~
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:18:12: warning: format string is not a string literal (potentially insecure) [clang-diagnostic-format-security]
+   18 |     printf(a.species);                // BUG-2: format string
+      |            ^~~~~~~~~
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:18:12: note: treat the string as an argument to avoid this
+   18 |     printf(a.species);                // BUG-2: format string
+      |            ^
+      |            "%s", 
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:33:5: warning: an exception may be thrown in function 'main' which should not throw exceptions [bugprone-exception-escape]
+   33 | int main(int argc, char** argv) {
+      |     ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/__new/exceptions.h:74:3: note: frame #0: unhandled exception of type 'bad_array_new_length' may be thrown in function '__throw_bad_array_new_length' here
+   74 |   throw bad_array_new_length();
+      |   ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/__memory/allocator.h:88:7: note: frame #1: function 'allocate' calls function '__throw_bad_array_new_length' here
+   88 |       std::__throw_bad_array_new_length();
+      |       ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/__memory/allocate_at_least.h:46:86: note: frame #2: function '__allocate_at_least<std::allocator<char>, std::allocator_traits<std::allocator<char>>>' calls function 'allocate' here
+   46 |   return __allocation_result<typename _Traits::pointer, typename _Traits::size_type>(__alloc.allocate(__n), __n);
+      |                                                                                      ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:2187:21: note: frame #3: function '__allocate_long_buffer' calls function '__allocate_at_least<std::allocator<char>, std::allocator_traits<std::allocator<char>>>' here
+ 2187 |     auto __buffer = std::__allocate_at_least(__alloc, __align_allocation_size(__min_capacity));
+      |                     ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:2199:12: note: frame #4: function '__allocate_long_buffer' calls function '__allocate_long_buffer' here
+ 2199 |     return __allocate_long_buffer(__alloc, __size, __size);
+      |            ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:2224:20: note: frame #5: function '__init_internal_buffer' calls function '__allocate_long_buffer' here
+ 2224 |       __rep_.__l = __allocate_long_buffer(__alloc_, __size);
+      |                    ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:2643:17: note: frame #6: function '__init_with_size<const char *, const char *>' calls function '__init_internal_buffer' here
+ 2643 |   pointer __p = __init_internal_buffer(__sz);
+      |                 ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:2636:3: note: frame #7: function '__init<const char *, 0>' calls function '__init_with_size<const char *, const char *>' here
+ 2636 |   __init_with_size(__first, __last, __sz);
+      |   ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:1101:5: note: frame #8: function 'basic_string<const char *, 0>' calls function '__init<const char *, 0>' here
+ 1101 |     __init(__first, __last);
+      |     ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/string:1377:26: note: frame #9: function 'append<const char *, 0>' calls function 'basic_string<const char *, 0>' here
+ 1377 |       const basic_string __temp(__first, __last, __alloc_);
+      |                          ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/istream:1310:9: note: frame #10: function 'getline<char, std::char_traits<char>, std::allocator<char>>' calls function 'append<const char *, 0>' here
+ 1310 |         __str.append(__first, __last);
+      |         ^
+/opt/homebrew/Cellar/llvm/23.1.3_2/bin/../include/c++/v1/istream:1344:10: note: frame #11: function 'getline<char, std::char_traits<char>, std::allocator<char>>' calls function 'getline<char, std::char_traits<char>, std::allocator<char>>' here
+ 1344 |   return std::getline(__is, __str, __is.widen('\n'));
+      |          ^
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:40:12: note: frame #12: function 'main' calls function 'getline<char, std::char_traits<char>, std::allocator<char>>' here
+   40 |     while (std::getline(*in, line)) {
+      |            ^
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:43:9: warning: 'sscanf' used to convert a string to an integer value, but function will not report conversion errors; consider using 'strtol' instead [bugprone-unchecked-string-to-number-conversion,cert-err34-c]
+   43 |         std::sscanf(line.c_str(), "%[^,],%[^,],%d", a.name, a.species, &a.age);
+      |         ^
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:43:9: warning: the value returned by this function should not be disregarded; neglecting it may lead to errors [cert-err33-c]
+   43 |         std::sscanf(line.c_str(), "%[^,],%[^,],%d", a.name, a.species, &a.age);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/margaretlacoste/workspace/SDA/lab3/vulnerableZoo.cpp:43:9: note: cast the expression to void to silence this warning
+Suppressed 307 warnings (307 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

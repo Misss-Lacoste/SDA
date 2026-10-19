@@ -1,0 +1,11 @@
+vulnerable_zoo
+vulnerablezoo
+secure_zoo
+*.o
+*.out
+*.dSYM/
+DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/

@@ -1,0 +1,29 @@
+okZoo.cpp:1:2: information: Include file: <iostream> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <iostream>
+ ^
+okZoo.cpp:2:2: information: Include file: <fstream> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <fstream>
+ ^
+okZoo.cpp:3:2: information: Include file: <string> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <string>
+ ^
+okZoo.cpp:4:2: information: Include file: <cstring> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <cstring>
+ ^
+okZoo.cpp:5:2: information: Include file: <vector> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <vector>
+ ^
+okZoo.cpp:6:2: information: Include file: <zlib.h> not found. Please note: Standard library headers do not need to be provided to get proper results. [missingIncludeSystem]
+#include <zlib.h>   // zlib >= 1.3.1
+ ^
+okZoo.cpp:8:48: warning: Member variable 'Animal::age' has no initializer. [uninitMemberVarNoCtor]
+struct Animal { std::string name, species; int age; };
+                                               ^
+okZoo.cpp:20:18: warning: Potentially invalid type conversion in old-style C cast, clarify/fix with C++ cast [dangerousTypeCast]
+    s.next_in  = (Bytef*)data.data();
+                 ^
+okZoo.cpp:48:16: style: Variable 'a' can be declared as reference to const [constVariableReference]
+    for (auto& a : zoo) processAnimal(a);
+               ^
+nofile:0:0: information: Active checkers: 176/189 (use --checkers-report=<filename> to see details) [checkersReport]
+

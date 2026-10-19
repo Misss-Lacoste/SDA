@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.22.0"/>
+    <errors>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="1" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;fstream&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;fstream&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="2" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;string&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="3" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;cstring&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;cstring&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="4" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;cstdio&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;cstdio&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="5" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;vector&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;vector&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="6" column="2"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;zlib.h&gt; not found. Please note: Standard library headers do not need to be provided to get proper results." verbose="Include file: &lt;zlib.h&gt; not found. Please note: Standard library headers do not need to be provided to get proper results.">
+            <location file="vulnerableZoo.cpp" line="7" column="2"/>
+        </error>
+        <error id="invalidscanf" severity="warning" msg="sscanf() without field width limits can crash with huge input data." verbose="sscanf() without field width limits can crash with huge input data. Add a field width specifier to fix this problem.\012\012Sample program that can crash:\012\012#include &lt;stdio.h&gt;\012int main()\012{\012    char c[5];\012    scanf(&quot;%s&quot;, c);\012    return 0;\012}\012\012Typing in 5 or more characters may make the program crash. The correct usage here is &apos;scanf(&quot;%4s&quot;, c);&apos;, as the maximum field width does not include the terminating null byte.\012Source: http://linux.die.net/man/3/scanf\012Source: http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c" cwe="119" hash="15758797958125512842" file0="vulnerableZoo.cpp">
+            <location file="vulnerableZoo.cpp" line="43" column="14"/>
+        </error>
+        <error id="dangerousTypeCast" severity="warning" msg="Potentially invalid type conversion in old-style C cast, clarify/fix with C++ cast" verbose="Potentially invalid type conversion in old-style C cast, clarify/fix with C++ cast" cwe="398" hash="12528662675853196114" file0="vulnerableZoo.cpp">
+            <location file="vulnerableZoo.cpp" line="25" column="18"/>
+        </error>
+        <error id="constVariableReference" severity="style" msg="Variable &apos;a&apos; can be declared as reference to const" verbose="Variable &apos;a&apos; can be declared as reference to const" cwe="398" hash="3982721168015291804" file0="vulnerableZoo.cpp">
+            <location file="vulnerableZoo.cpp" line="47" column="16" info="Variable &apos;a&apos; can be declared as reference to const"/>
+            <symbol>a</symbol>
+        </error>
+        <error id="checkersReport" severity="information" msg="Active checkers: 176/189 (use --checkers-report=&lt;filename&gt; to see details)" verbose="Active checkers: 176/189 (use --checkers-report=&lt;filename&gt; to see details)"/>
+    </errors>
+</results>
